@@ -1,7 +1,7 @@
 <?php
 /*
-	Plugin Name: Dominant Colour
-	Description: Add an attachment meta option to provide the hex of the most dominant colour of an image.
+	Plugin Name: Dominant Color
+	Description: Add an attachment meta option to provide the hex of the most dominant color of an image.
 	Version: 1.0
 	Author: Liam Gladdy
 	Author URI: https://gladdy.uk
@@ -22,20 +22,20 @@ function update_attachment_color_dominance($attachment_id) {
 	
 	if (!$image) return;
 	
-	$dominantColour = ColorThief::getColor($image);
-	$hex = rgb2hex($dominantColour);
+	$dominantColor = ColorThief::getColor($image);
+	$hex = rgb2hex($dominantColor);
 	
-	update_post_meta($attachment_id, 'dominant_colour_hex', $hex);
-	update_post_meta($attachment_id, 'dominant_colour_rgb', $dominantColour);	
+	update_post_meta($attachment_id, 'dominant_color_hex', $hex);
+	update_post_meta($attachment_id, 'dominant_color_rgb', $dominantColor);	
 	
 	$palette = ColorThief::getPalette($image, 8);
-	update_post_meta($attachment_id, 'colour_palette_rgb', $palette);	
+	update_post_meta($attachment_id, 'color_palette_rgb', $palette);	
 	
 	$hex_palette = array();
 	foreach($palette as $rgb) {
 		$hex_palette[] = rgb2hex($rgb);
 	}
-	update_post_meta($attachment_id, 'colour_palette_hex', $hex_palette);	
+	update_post_meta($attachment_id, 'color_palette_hex', $hex_palette);	
 }
 
 function rgb2hex($rgb) {
@@ -47,7 +47,7 @@ function rgb2hex($rgb) {
    return $hex; // returns the hex value including the number sign (#)
 }
 
-function get_colour_data($attachment_id, $thing_to_get) {
+function get_color_data($attachment_id, $thing_to_get) {
 	$data = get_post_meta($attachment_id, $thing_to_get, true);
 	if (!$data) {
 		update_attachment_color_dominance($attachment_id);
