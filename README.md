@@ -10,3 +10,7 @@ The dominant colour and colour palette is automatically saved on upload and edit
 You need to then use [get_post_meta](https://developer.wordpress.org/reference/functions/get_post_meta/) to retrieve the "dominant_colour_hex" or "dominant_colour_rgb" meta key. hex returns a string, including the #, rgb returns an array with key 0 as red, 1 as green, and 2 as blue.
 
 Alternatively, you can use the meta keys "colour_palette_rgb" and "colour_palette_hex" to get an array of 8 colours that feature prominently in the image.
+
+### Todo
+
+Provide a way automatically update previously uploaded images with their colour data. Until then, you can use a helper function, get_colour_data (instead of get_post_meta) which will automatically build the colour data if need be at runtime.
