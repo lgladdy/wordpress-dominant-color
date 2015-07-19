@@ -1,0 +1,16 @@
+{
+    "name": "lgladdy/dominant-color--wordpress",
+    "description": "A WordPress plugin to grab the most dominant colour in an attachment",
+    "type": "library",
+    "require": {
+        "ksubileau/color-thief-php": "~1.2"
+    },
+    "license": "Apache 2.0",
+    "authors": [
+        {
+            "name": "Liam Gladdy",
+            "email": "liam@gladdy.co.uk"
+        }
+    ],
+    "minimum-stability": "dev"
+}
