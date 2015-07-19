@@ -19,7 +19,8 @@ function update_attachment_color_dominance($attachment_id) {
 	$dominantColour = ColorThief::getColor($image[0]);
 	$hex = rgb2hex($dominantColour);
 	
-	update_post_meta($attachment_id, 'dominant_colour', $hex);	
+	update_post_meta($attachment_id, 'dominant_colour_hex', $hex);
+	update_post_meta($attachment_id, 'dominant_colour_rgb', $dominantColour);	
 }
 
 function rgb2hex($rgb) {
