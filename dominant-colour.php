@@ -48,10 +48,10 @@ function rgb2hex($rgb) {
 }
 
 function get_colour_data($attachment_id, $thing_to_get) {
-	$data = get_post_meta($attachment_id, $thing_to_get);
+	$data = get_post_meta($attachment_id, $thing_to_get, true);
 	if (!$data) {
 		update_attachment_color_dominance($attachment_id);
-		return get_post_meta($attachment_id, $thing_to_get);
+		return get_post_meta($attachment_id, $thing_to_get, true);
 	} else {
 		return $data;
 	}
