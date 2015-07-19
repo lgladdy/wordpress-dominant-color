@@ -16,6 +16,8 @@ add_action('add_attachment', 'update_attachment_color_dominance', 10, 1);
 function update_attachment_color_dominance($attachment_id) {
 	$image = wp_get_attachment_image_src($attachment_id);
 	
+	if (!$image) return;
+	
 	$dominantColour = ColorThief::getColor($image[0]);
 	$hex = rgb2hex($dominantColour);
 	
@@ -39,4 +41,14 @@ function rgb2hex($rgb) {
    $hex .= str_pad(dechex($rgb[2]), 2, "0", STR_PAD_LEFT);
 
    return $hex; // returns the hex value including the number sign (#)
+}
+
+function get_colour_data($attachment_id, $thing_to_get) {
+	$data = get_post_meta($attachment_id, $thing_to_get);
+	if (!$data) {
+		update_attachment_color_dominance($attachment_id);
+		return get_post_meta($attachment_id, $thing_to_get);
+	} else {
+		return $data;
+	}
 }
