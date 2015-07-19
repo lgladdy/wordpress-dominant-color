@@ -21,6 +21,15 @@ function update_attachment_color_dominance($attachment_id) {
 	
 	update_post_meta($attachment_id, 'dominant_colour_hex', $hex);
 	update_post_meta($attachment_id, 'dominant_colour_rgb', $dominantColour);	
+	
+	$palette = ColorThief::getPalette($image[0], 8);
+	update_post_meta($attachment_id, 'colour_palette_rgb', $palette);	
+	
+	$hex_palette = array();
+	foreach($palette as $rgb) {
+		$hex_palette[] = rgb2hex($rgb);
+	}
+	update_post_meta($attachment_id, 'colour_palette_hex', $hex_palette);	
 }
 
 function rgb2hex($rgb) {
