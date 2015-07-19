@@ -14,17 +14,21 @@ add_action('edit_attachment', 'update_attachment_color_dominance', 10, 1);
 add_action('add_attachment', 'update_attachment_color_dominance', 10, 1);
 
 function update_attachment_color_dominance($attachment_id) {
-	$image = wp_get_attachment_image_src($attachment_id);
+	
+	if (!wp_attachment_is_image($attachment_id)) return;
+	
+	$upload_dir = wp_upload_dir();
+	$image = $upload_dir['basedir'].'/'.get_post_meta($attachment_id, '_wp_attached_file', true);
 	
 	if (!$image) return;
 	
-	$dominantColour = ColorThief::getColor($image[0]);
+	$dominantColour = ColorThief::getColor($image);
 	$hex = rgb2hex($dominantColour);
 	
 	update_post_meta($attachment_id, 'dominant_colour_hex', $hex);
 	update_post_meta($attachment_id, 'dominant_colour_rgb', $dominantColour);	
 	
-	$palette = ColorThief::getPalette($image[0], 8);
+	$palette = ColorThief::getPalette($image, 8);
 	update_post_meta($attachment_id, 'colour_palette_rgb', $palette);	
 	
 	$hex_palette = array();
