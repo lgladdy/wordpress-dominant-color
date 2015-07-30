@@ -116,7 +116,8 @@ function get_color_data($attachment_id, $thing_to_get, $no_rebuild = false, $all
 	//If thing_to_get is dominant_color_hex or dominant_color_rgb, we should check if an override is set first.
 	if ($allow_override && ($thing_to_get == "dominant_color_hex" || $thing_to_get == "dominant_color_rgb")) {
 		$data = get_post_meta($attachment_id, 'dominant_override', true);
-		if ($data && !empty(trim($data))) {
+		$data = trim($data);
+		if ($data && !empty($data)) {
 			if ($thing_to_get == "dominant_color_hex") {
 				return $data;
 			} else {
