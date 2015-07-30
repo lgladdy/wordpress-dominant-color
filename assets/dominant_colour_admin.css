@@ -1,0 +1,14 @@
+.dominant-colour-square {
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+  box-sizing: border-box;
+}
+
+.dominant-colour-square:hover {
+  border: 2px solid #ff6c6c;
+}
+
+.dominant-colour-square.selected {
+  border: 2px solid red;
+}

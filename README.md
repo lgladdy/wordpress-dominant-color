@@ -7,13 +7,11 @@ Uses [ksubileau/color-thief-php](https://github.com/ksubileau/color-thief-php) a
 
 The dominant color and color palette is automatically saved on upload and edit to post meta.
 
-You need to then use [get_post_meta](https://developer.wordpress.org/reference/functions/get_post_meta/) to retrieve the "dominant_color_hex" or "dominant_color_rgb" meta key. hex returns a string, including the #, rgb returns an array with key 0 as red, 1 as green, and 2 as blue.
+The dominant color can be overridden in the media gallery with any color from the palette in the media gallery.
 
-Alternatively, you can use the meta keys "color_palette_rgb" and "color_palette_hex" to get an array of 8 colors that feature prominently in the image.
+You need to then use our function get_color_data() to retrieve the "dominant_color_hex" or "dominant_color_rgb" meta key. hex returns a string, including the #, rgb returns an array with key 0 as red, 1 as green, and 2 as blue.
 
-### Todo
-
-Provide a way automatically update previously uploaded images with their color data. Until then, you can use a helper function, get_color_data (instead of get_post_meta) which will automatically build the color data if need be at runtime.
+You can also use the meta keys "color_palette_rgb" and "color_palette_hex" to get an array of 8 colors that feature prominently in the image.
 
 ### Apologies
 
