@@ -10,6 +10,17 @@
 require('vendor/autoload.php');
 use ColorThief\ColorThief;
 
+//gets all hex values from svg
+function get_svg_colors($svg_url){
+	$file = file_get_contents($svg_url);
+	preg_match_all("/#[0-9a-f]{6}/i", $file, $colors_6char);
+	$file_edit = str_replace($colors_6char[0],'',$file);
+	preg_match_all("/#[0-9a-f]{3}/i", $file_edit, $colors_3char);
+	$colors = array_merge($colors_6char[0], $colors_3char[0]);
+	$colors = array_unique($colors);
+	return $colors;
+};
+
 // Add our css to the admin
 add_action('admin_enqueue_scripts', 'dominance_scripts');
 
@@ -25,32 +36,44 @@ add_action('add_attachment', 'update_attachment_color_dominance', 10, 1);
 
 
 function update_attachment_color_dominance($attachment_id) {
-	
+
 	if (!wp_attachment_is_image($attachment_id)) return;
-	
+
 	$upload_dir = wp_upload_dir();
 	$image = $upload_dir['basedir'].'/'.get_post_meta($attachment_id, '_wp_attached_file', true);
-	
-	if (!$image) return;
-	try {
-		$dominantColor = ColorThief::getColor($image);
-	} catch(Exception $e) {
-		//Probably should do something here. I think realistically this just means the image doesn't exist, or isn't an image. So maybe return is fine anyway?
+	$ext = pathinfo($image, PATHINFO_EXTENSION);
+	$post = get_post($attachment_id);
+	if (!$image) {
 		return;
+	} elseif( $ext === 'svg' ) {
+		$hex_palette = get_svg_colors($post->guid);
+		$hex = $hex_palette[0];
+		$dominantColor = hex2rgb($hex);
+		$palette = [];
+		foreach ($hex_palette as $hex) {
+			$palette[] = hex2rgb($hex);
+		}
+	} else {
+		try {
+			$dominantColor = ColorThief::getColor($image);
+		} catch(Exception $e) {
+			//Probably should do something here. I think realistically this just means the image doesn't exist, or isn't an image. So maybe return is fine anyway?
+			return;
+		}
+		$palette = ColorThief::getPalette($image, 8);
+		
+		$hex = rgb2hex($dominantColor);
+		$hex_palette = [];
+		foreach($palette as $rgb) {
+			$hex_palette[] = rgb2hex($rgb);
+		}
 	}
-	$hex = rgb2hex($dominantColor);
-	
+	$palette = array_unique($palette);
+	$hex_palette = array_unique($hex_palette);
 	update_post_meta($attachment_id, 'dominant_color_hex', $hex);
-	update_post_meta($attachment_id, 'dominant_color_rgb', $dominantColor);	
-	
-	$palette = ColorThief::getPalette($image, 8);
-	update_post_meta($attachment_id, 'color_palette_rgb', $palette);	
-	
-	$hex_palette = array();
-	foreach($palette as $rgb) {
-		$hex_palette[] = rgb2hex($rgb);
-	}
-	update_post_meta($attachment_id, 'color_palette_hex', $hex_palette);	
+	update_post_meta($attachment_id, 'dominant_color_rgb', $dominantColor);
+	update_post_meta($attachment_id, 'color_palette_rgb', $palette);
+	update_post_meta($attachment_id, 'color_palette_hex', $hex_palette);
 }
 
 
