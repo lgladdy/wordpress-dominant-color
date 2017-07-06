@@ -1,12 +1,12 @@
 <?php
 /*
-	Plugin Name: Dominant Color By Sproutsocial
+	Plugin Name: Dominant Color
 	Description: Add an attachment meta option to provide the hex of the most dominant color of an image.
-	Version: 1.0
-    Text Domain: dominant-color-Sproutsocial
-	Author: Previously Liam Gladdy, now Sproutsocial.
+	Version: 2.2.0
+  Text Domain: dominant-color
+	Author: Liam Gladdy
+	Author URI: https://gladdy.uk
 */
-
 require('vendor/autoload.php');
 use ColorThief\ColorThief;
 
