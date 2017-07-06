@@ -21,18 +21,22 @@ function get_svg_colors($svg_url){
 };
 
 function get_top_left_pixel($image_location){
-	$ext = pathinfo($image_location, PATHINFO_EXTENSION);
-	if ($ext == 'png') {
-		$image= imagecreatefrompng($image_location);
-	} elseif ($ext == 'jpg' || $ext == 'jpeg') {
-		$image = imagecreatefromjpeg($image_location);
-	} elseif ($ext == 'gif') {
-		$image = imagecreatefromgif($image_location);
+	if (extension_loaded('gd')) {
+		$ext = pathinfo($image_location, PATHINFO_EXTENSION);
+		if ($ext == 'png') {
+			$image= imagecreatefrompng($image_location);
+		} elseif ($ext == 'jpg' || $ext == 'jpeg') {
+			$image = imagecreatefromjpeg($image_location);
+		} elseif ($ext == 'gif') {
+			$image = imagecreatefromgif($image_location);
+		}
+		$rgb = imagecolorat($image, 0, 0);
+		$colors = imagecolorsforindex($image, $rgb);
+		$colorHex = sprintf("#%02x%02x%02x", $colors["red"], $colors["green"], $colors["blue"]);
+		return $colorHex;
+	} else {
+		return false;
 	}
-	$rgb = imagecolorat($image, 0, 0);
-	$colors = imagecolorsforindex($image, $rgb);
-	$colorHex = sprintf("#%02x%02x%02x", $colors["red"], $colors["green"], $colors["blue"]);
-	return $colorHex;
 }
 
 // Add our css to the admin
@@ -80,8 +84,12 @@ function update_attachment_color_dominance($attachment_id) {
 		foreach($palette as $rgb) {
 			$hex_palette[] = rgb2hex($rgb);
 		}
-		$hex_palette[] = get_top_left_pixel($post->guid);
-		$palette[] = hex2rgb(end($hex_palette));
+		
+		$top_left = get_top_left_pixel($post->guid);
+		if ($top_left !== false){
+			$hex_palette[] = $top_left;
+			$palette[] = hex2rgb($top_left);
+		}
 	}
 	$palette = array_unique($palette);
 	$hex_palette = array_unique($hex_palette);

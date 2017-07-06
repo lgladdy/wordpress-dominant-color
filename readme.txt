@@ -21,6 +21,10 @@ Alternatively, you can use the meta keys "color_palette_rgb" and "color_palette_
 
 == Changelog ==
 
+2.2
+---
+Adds SVG Support and also now gives you the top left pixel as the last color. Thanks to Eric Mikkelsen at Sprout Social.
+
 2.0
 ---
 
