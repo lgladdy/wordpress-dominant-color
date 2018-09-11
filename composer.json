@@ -3,7 +3,8 @@
     "description": "A WordPress plugin to grab the most dominant colour in an attachment",
     "type": "library",
     "require": {
-        "ksubileau/color-thief-php": "~1.2"
+        "ksubileau/color-thief-php": "~1.2",
+        "a5hleyrich/wp-background-processing": "1.0.1"
     },
     "license": "Apache 2.0",
     "authors": [
