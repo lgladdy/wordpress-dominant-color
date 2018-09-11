@@ -8,6 +8,7 @@
 	Author URI: https://gladdy.uk
 */
 require('vendor/autoload.php');
+require('class-dominant-color-async-request.php');
 use ColorThief\ColorThief;
 
 function get_svg_colors($svg_url){
@@ -48,9 +49,6 @@ function dominance_scripts() {
 	wp_register_script('dominanceColorJS', plugins_url('assets/dominant_colour_admin.js', __FILE__), array(), '2.0');
 	wp_enqueue_script('dominanceColorJS');
 }
-
-//Color dominance detection and saving.
-add_action('add_attachment', 'update_attachment_color_dominance', 10, 1);
 
 function update_attachment_color_dominance($attachment_id) {
 
@@ -99,6 +97,12 @@ function update_attachment_color_dominance($attachment_id) {
 	update_post_meta($attachment_id, 'color_palette_hex', $hex_palette);
 }
 
+//Color dominance detection and saving.
+function update_attachment_color_dominance_async( $attachment_id ) {
+	$process = new Dominant_Color_Async_Request();
+	$process->data( [ 'id' => $attachment_id ] )->dispatch();
+}
+add_action('add_attachment', 'update_attachment_color_dominance_async', 10, 1);
 
 // Admin field for overriding.
 add_filter("attachment_fields_to_edit", "add_colour_dominance_fields", 10, 2);
@@ -207,4 +211,9 @@ function hex2rgb($color){
 add_action( 'plugins_loaded', 'dominant_color_load_textdomain' );
 function dominant_color_load_textdomain() {
   load_plugin_textdomain( 'dominant-color', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
+}
+
+add_action( 'plugins_loaded', 'dominant_color_init' );
+function dominant_color_init() {
+	new Dominant_Color_Async_Request();
 }
