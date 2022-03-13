@@ -1,45 +1,49 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "d4dab805a8c0f0fb07d2135640637203",
+    "content-hash": "07364ccd6e6190b8e5116222090f4168",
     "packages": [
         {
             "name": "ksubileau/color-thief-php",
-            "version": "v1.2.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ksubileau/color-thief-php.git",
-                "reference": "a5bb45b18f590c745c350d005ca4c5992bd83d7b"
+                "reference": "f905264d26c468f41989bb269546de6076aa7961"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ksubileau/color-thief-php/zipball/a5bb45b18f590c745c350d005ca4c5992bd83d7b",
-                "reference": "a5bb45b18f590c745c350d005ca4c5992bd83d7b",
+                "url": "https://api.github.com/repos/ksubileau/color-thief-php/zipball/f905264d26c468f41989bb269546de6076aa7961",
+                "reference": "f905264d26c468f41989bb269546de6076aa7961",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "ext-fileinfo": "*",
+                "php": "^7.2|^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.3",
-                "squizlabs/php_codesniffer": "~1.5"
+                "friendsofphp/php-cs-fixer": "^3.4",
+                "phpstan/phpstan": "^1.2.0",
+                "phpstan/phpstan-phpunit": "^1.0.0",
+                "phpunit/phpunit": "^8.5"
             },
             "suggest": {
                 "ext-gd": "to use the GD image adapter.",
+                "ext-gmagick": "to use the Gmagick image adapter.",
                 "ext-imagick": "to use the Imagick image adapter."
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "ColorThief": "lib/"
+                "psr-4": {
+                    "ColorThief\\": "src/ColorThief"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "CC-BY-2.5"
+                "MIT"
             ],
             "authors": [
                 {
@@ -56,15 +60,20 @@
                 "php",
                 "thief"
             ],
-            "time": "2014-10-30 10:49:52"
+            "support": {
+                "issues": "https://github.com/ksubileau/color-thief-php/issues",
+                "source": "https://github.com/ksubileau/color-thief-php/tree/v2.0.0"
+            },
+            "time": "2022-03-12T20:27:56+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.2.0"
 }

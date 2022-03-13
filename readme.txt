@@ -1,13 +1,23 @@
 === Dominant Color ===
 Contributors: lgladdy
 Tags: color, colour, image, dominant, dominance, automatic
-Requires at least: 4.0
-Tested up to: 4.3
-Stable tag: 2.0
+Requires at least: 5.4
+Requires PHP: 7.2
+Tested up to: 5.9.1
+Stable tag: 2.1.0
 License: Apache 2.0
+Text Domain: dominant-color
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
 A WordPress plugin to automatically save the dominant color and a color palette for an attachment image into post_meta.
+
+Requires:
+PHP >= 7.2
+Fileinfo extension
+One or more PHP extensions for image processing:
+- GD >= 2.0
+- Imagick >= 2.0 (but >= 3.0 for CMYK images)
+- Gmagick >= 1.0
 
 == Description ==
 A WordPress plugin to automatically save the dominant color and a color palette for an attachment image into post_meta.
@@ -19,11 +29,29 @@ You need to then use get_post_meta to retrieve the "dominant_color_hex" or "domi
 
 Alternatively, you can use the meta keys "color_palette_rgb" and "color_palette_hex" to get an array of 8 colors that feature prominently in the image.
 
+== Screenshots ==
+
+1. Shows the plugin in use on hellobrstl.com
+2. Shows the plugin in use on hellobrstl.com
+3. Shows the plugin in use on hellobrstl.com
+
 == Changelog ==
 
-2.2
+2.2.0
 ---
-Adds SVG Support and also now gives you the top left pixel as the last color. Thanks to Eric Mikkelsen at Sprout Social.
+
+Modernise javascript for deprecated jQuery handlers
+Update to latest version of [PHP Color Thief](https://github.com/ksubileau/color-thief-php)
+
+2.1.0
+---
+
+Support translated languages (Submit your translation at translate.wordpress.org!)
+
+2.0.1
+---
+
+Fix a bug where loading our JS in the footer would cause a javascript error.
 
 2.0
 ---

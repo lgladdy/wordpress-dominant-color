@@ -1,7 +1,14 @@
 # Dominant Color
 A WordPress plugin to automatically save the dominant color and a color palette for an attachment image into post_meta.
 
-Uses [ksubileau/color-thief-php](https://github.com/ksubileau/color-thief-php) as it's core.
+Uses [ksubileau/color-thief-php](https://github.com/ksubileau/color-thief-php) as it's core, and shares that project's requirements:
+
+- PHP >= 7.2
+- Fileinfo extension
+- One or more PHP extensions for image processing:
+    - GD >= 2.0
+    - Imagick >= 2.0 (but >= 3.0 for CMYK images)
+    - Gmagick >= 1.0
 
 ### Usage
 
